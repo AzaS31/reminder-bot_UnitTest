@@ -10,8 +10,6 @@ use App\EventSender\EventSender;
 
 use App\Models\Event;
 
-use App\Telegram\TelegramApiImpl;
-
 //use App\Models\EventDto;
 
 class HandleEventsCommand extends Command
@@ -31,16 +29,18 @@ class HandleEventsCommand extends Command
     public function run(array $options = []): void
 
     {
+
         $event = new Event(new SQLite($this->app));
+
         $events = $event->select();
 
-        $eventSender = new EventSender(new TelegramApiImpl($this->app->env('TELEGRAM_TOKEN')));
-        
+        $eventSender = new EventSender();
+
         foreach ($events as $event) {
-            
+
             if ($this->shouldEventBeRan($event)) {
 
-                $eventSender->sendMessage($event['receiver_id'], $event['text']);
+                $eventSender->sendMessage($event->receiverId, $event->text);
 
             }
 
@@ -48,20 +48,28 @@ class HandleEventsCommand extends Command
 
     }
 
-    public function shouldEventBeRan(array $event): bool
-    {
-        $currentMinute = date("i");  
-        $currentHour = date("H");   
-        $currentDay = date("d");    
-        $currentMonth = date("m"); 
-        $currentWeekday = date("w");
-        
-        $eventMonth = str_pad($event['month'], 2, '0', STR_PAD_LEFT);
+    private function shouldEventBeRan($event): bool
 
-        return (string)$event['minute'] === $currentMinute &&
-            (string)$event['hour'] === $currentHour &&
-            (string)$event['day'] === $currentDay &&
-            $eventMonth === $currentMonth &&
-            (string)$event['day_of_week'] === (string)$currentWeekday;
+    {
+        $currentMinute = date("i");
+
+        $currentHour = date("H");
+
+        $currentDay = date("d");
+
+        $currentMonth = date("m");
+
+        $currentWeekday = date("w");
+
+        return ($event['minute'] === $currentMinute &&
+
+            $event['hour'] === $currentHour &&
+
+            $event['day'] === $currentDay &&
+
+            $event['month'] === $currentMonth &&
+
+            $event['weekDay'] === $currentWeekday);
     }
+
 }
