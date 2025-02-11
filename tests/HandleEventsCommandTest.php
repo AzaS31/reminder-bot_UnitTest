@@ -25,7 +25,7 @@ class HandleEventsCommandTest extends TestCase
                     'hour' => date("H"),
                     'day' => date("d"),
                     'month' => date("m"),
-                    'weekDay' => date("w")
+                    'day_of_week' => date("w")
                 ],
                 true
             ],
@@ -35,7 +35,7 @@ class HandleEventsCommandTest extends TestCase
                     'hour' => date("H"),
                     'day' => date("d"),
                     'month' => date("m"),
-                    'weekDay' => null
+                    'day_of_week' => null
                 ],
                 false
             ],
@@ -45,7 +45,7 @@ class HandleEventsCommandTest extends TestCase
                     'hour' => date("H"),
                     'day' => date("d"),
                     'month' => null,
-                    'weekDay' => date("w")
+                    'day_of_week' => date("w")
                 ],
                 false
             ],
@@ -55,7 +55,7 @@ class HandleEventsCommandTest extends TestCase
                     'hour' => date("H"),
                     'day' => null,
                     'month' => date("m"),
-                    'weekDay' => date("w")
+                    'day_of_week' => date("w")
                 ],
                 false
             ],
@@ -65,7 +65,7 @@ class HandleEventsCommandTest extends TestCase
                     'hour' => null,
                     'day' => date("d"),
                     'month' => date("m"),
-                    'weekDay' => date("w")
+                    'day_of_week' => date("w")
                 ],
                 false
             ],
@@ -75,7 +75,7 @@ class HandleEventsCommandTest extends TestCase
                     'hour' => date("H"),
                     'day' => date("d"),
                     'month' => date("m"),
-                    'weekDAy' => date("w")
+                    'day_of_week' => date("w")
                 ],
                 false
             ]
