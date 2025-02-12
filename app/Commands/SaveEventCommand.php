@@ -5,23 +5,20 @@ namespace App\Commands;
 use App\Application;
 use App\Database\SQLite;
 use App\Models\Event;
+use App\Actions\EventSaver;
 
 //php runner -c save_event --name 'Имя события' --receiver ‘Айди получателя, пока
 //любой’ --text 'Текст напоминания' --cron '* * * * *'
 class SaveEventCommand extends Command
 {
-
     protected Application $app;
 
     public function __construct(Application $app)
-
     {
-
         $this->app = $app;
-
     }
+    
     public function run(array $options  = []): void
-
     {
 
         $options = $this->getGetoptOptionValues();
@@ -64,8 +61,9 @@ class SaveEventCommand extends Command
 
         ];
 
-        $this->saveEvent($params);
-
+        $eventModel = new Event(new SQLite($this->app));
+        $eventSaver = new EventSaver($eventModel);
+        $eventSaver->handle($params);
     }
 
     private function getGetoptOptionValues(): array
@@ -147,22 +145,6 @@ class SaveEventCommand extends Command
         }, $cronValues);
 
         return $cronValues;
-
-    }
-
-    private function saveEvent(array $params): void
-
-    {
-
-        $event = new Event(new SQLite($this->app));
-
-        $event->insert(
-
-            implode(', ', array_keys($params)),
-
-            array_values($params)
-
-        );
 
     }
 

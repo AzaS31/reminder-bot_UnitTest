@@ -2,6 +2,12 @@
 
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @covers \App\Commands\HandleEventsDaemonCommand::getCurrentTime
+ * @covers \App\Commands\HandleEventsDaemonCommand::__construct
+ * @covers \App\Application::__construct
+ */
+
 class HandleEventsDaemonCommandTest extends TestCase
 {
     public function testGetCurrentTime()

@@ -2,6 +2,12 @@
 
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @covers \App\Commands\SaveEventCommand::isNeedHelp
+ * @covers \App\Commands\SaveEventCommand::__construct
+ * @covers \App\Application::__construct
+ */
+
 class SaveEventCommandTest extends TestCase
 {
     /**

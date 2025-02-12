@@ -2,6 +2,12 @@
 
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @covers \App\Commands\HandleEventsCommand::shouldEventBeRan
+ * @covers \App\Commands\HandleEventsCommand::__construct
+ * @covers \App\Application::__construct
+ */
+
 class HandleEventsCommandTest extends TestCase
 {
     /**
